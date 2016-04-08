@@ -26,9 +26,9 @@ $app = new \Slim\App($settings);
 
     $app->get('/menu', function ($request, $response, $args) {
         $servername = "localhost";
-        $username = "test";
-        $password = "test";
-        $dbname = "test";
+        $username = "root";
+        $password = "root";
+        $dbname = "Menu";
         $conn = new mysqli($servername, $username, $password, $dbname);
 
         // Create connection
