@@ -24,7 +24,7 @@ $app = new \Slim\App($settings);
         return $response;
     });
 
-    $app->get('/menu', function ($request, $response, $args) {
+    $app->get('/menu/f', function ($request, $response, $args) {
         $servername = "localhost";
         $username = "root";
         $password = "root";
