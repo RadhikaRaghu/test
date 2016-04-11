@@ -11,7 +11,7 @@ if (PHP_SAPI == 'cli-server') {
 require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
-$servername = "http://188.166.222.84/";
+$servername = "188.166.222.84";
 $username = "test";
 $password = "test";
 $dbname = "test";
