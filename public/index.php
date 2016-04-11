@@ -113,7 +113,7 @@ $dbname = "test";
         $conn->close();
     });
 
-    $app->$get("/reserve", function ($request, $response, $args) {
+    $app->get("/reserve", function ($request, $response, $args) {
         
         global $servername, $username, $password, $dbname;
         $conn = new mysqli($servername, $username, $password, $dbname);
