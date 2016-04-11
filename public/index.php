@@ -125,15 +125,15 @@ $dbname = "test";
         } 
         $fName = $request->getAttribute('fname');
         //$fName = $app->request->get('fname');
-        $response->getBody()->write($fName);
+        //$response->getBody()->write($fName);
 
-        return $response;
-        /*
-        $lName = $app->request->post('LName');
-        $time = $app->request->post('time');
-        $LD = $app->request->post('LD');
-        $NoG = $app->request->post('NoG');
-        $date = $app->request->post('date');
+        //return $response;
+        
+        $lName = $request->getAttribute('lname');
+        $time = $request->getAttribute('time');
+        $LD = $request->getAttribute('ld');
+        $NoG = $request->getAttribute('nog');
+        $date = $request->getAttribute('date');
 
         $sql = "INSERT INTO Reservations (FName, LName, T, LD, NoG, D)
                 VALUES ($fName, $lName, $time, $LD, $NoG, $date)";
@@ -143,7 +143,7 @@ $dbname = "test";
         } 
         else {
         echo "Error: " . $sql . "<br>" . $conn->error;
-        */
+        
         $conn->close();
     });
 
