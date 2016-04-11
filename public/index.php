@@ -123,7 +123,7 @@ $dbname = "Menu";
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } 
-
+    
         $fName = $app->request->post('FName');
         $lName = $app->request->post('LName');
         $time = $app->request->post('time');
@@ -143,7 +143,7 @@ $dbname = "Menu";
         $conn->close();
     });
 
-    $app->run();
+$app->run();
 
 
 
