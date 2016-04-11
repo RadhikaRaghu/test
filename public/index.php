@@ -125,7 +125,9 @@ $dbname = "test";
         } 
         $fName = $request->getAttribute('fname');
         //$fName = $app->request->get('fname');
-        echo $fName;
+        $response->getBody()->write($fName);
+
+        return $response;
         /*
         $lName = $app->request->post('LName');
         $time = $app->request->post('time');
