@@ -11,10 +11,10 @@ if (PHP_SAPI == 'cli-server') {
 require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "Menu";
+$servername = "http://188.166.222.84/";
+$username = "test";
+$password = "test";
+$dbname = "test";
 
 // Instantiate the app
     $settings = require __DIR__ . '/../src/settings.php';
@@ -113,7 +113,7 @@ $dbname = "Menu";
         $conn->close();
     });
 
-    $app->$post("/addres", function ($request, $response, $args) {
+    $app->$get("/reserve", function ($request, $response, $args) {
         
         global $servername, $username, $password, $dbname;
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -124,7 +124,9 @@ $dbname = "Menu";
             die("Connection failed: " . $conn->connect_error);
         } 
     
-        $fName = $app->request->post('FName');
+        $fName = $app->request->get('fname');
+        echo $fName;
+        /*
         $lName = $app->request->post('LName');
         $time = $app->request->post('time');
         $LD = $app->request->post('LD');
@@ -139,7 +141,7 @@ $dbname = "Menu";
         } 
         else {
         echo "Error: " . $sql . "<br>" . $conn->error;
-
+        */
         $conn->close();
     });
 
