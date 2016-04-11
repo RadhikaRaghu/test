@@ -123,8 +123,8 @@ $dbname = "test";
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } 
-    
-        $fName = $app->request->get('fname');
+        $fName = $request->getAttribute('fname');
+        //$fName = $app->request->get('fname');
         echo $fName;
         /*
         $lName = $app->request->post('LName');
