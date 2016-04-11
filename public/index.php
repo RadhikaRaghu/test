@@ -14,9 +14,9 @@ use \Psr\Http\Message\ResponseInterface as Response;
 session_start();
 
 $servername = "localhost";
-$username = "test";
-$password = "test";
-$dbname = "test";
+$username = "root";
+$password = "root";
+$dbname = "menu";
 
 // Instantiate the app
     $settings = require __DIR__ . '/../src/settings.php';
@@ -115,7 +115,7 @@ $dbname = "test";
         $conn->close();
     });
 
-    $app->get("/reserve", function (Request $request, Response $response) {
+    $app->post("/reserve", function (Request $request, Response $response) {
         
         global $servername, $username, $password, $dbname;
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -125,15 +125,19 @@ $dbname = "test";
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } 
-        $fName = $request->getAttribute('fname');
-        $lName = $request->getAttribute('lname');
-        $time = $request->getAttribute('time');
-        $LD = $request->getAttribute('ld');
-        $NoG = $request->getAttribute('nog');
-        $date = $request->getAttribute('date');
+        $data = json_decode($request->getBody());
+        $fName = $data->fname;
+        $lName = $data->lname;
+        $time = $data->time;
+        $LD = $data->ld;
+        $NoG = $data->nog;
+        $date = $data->date;
+        $response->getBody()->write("Hello, $fName");
 
+    //return $response;
+        //echo $fName;
         $sql = "INSERT INTO Reservations (FName, LName, T, LD, NoG, D)
-                VALUES ($fName, $lName, $time, $LD, $NoG, $date)";
+                VALUES ('".$fName."','".$lName."','".$time."','".$LD."','".$NoG."','". $date."')";
         
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
@@ -141,6 +145,7 @@ $dbname = "test";
         else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
+        
         $conn->close();
     });
 
