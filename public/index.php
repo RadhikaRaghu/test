@@ -9,19 +9,20 @@ if (PHP_SAPI == 'cli-server') {
 }
 
 require __DIR__ . '/../vendor/autoload.php';
-
 session_start();
 
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "Menu";
 
 // Instantiate the app
-$settings = require __DIR__ . '/../src/settings.php';
-$app = new \Slim\App($settings);
+    $settings = require __DIR__ . '/../src/settings.php';
+    $app = new \Slim\App($settings);
 
     $app->get('/menu/f', function ($request, $response, $args) {
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "Menu";
+
+        global $servername, $username, $password, $dbname;
         $conn = new mysqli($servername, $username, $password, $dbname);
 
         // Create connection
@@ -51,10 +52,8 @@ $app = new \Slim\App($settings);
     });
 
     $app->get('/menu/dr', function ($request, $response, $args) {
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "Menu";
+        
+        global $servername, $username, $password, $dbname;
         $conn = new mysqli($servername, $username, $password, $dbname);
 
         // Create connection
@@ -84,10 +83,8 @@ $app = new \Slim\App($settings);
     });
 
      $app->get('/menu/dess', function ($request, $response, $args) {
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "Menu";
+        
+        global $servername, $username, $password, $dbname;
         $conn = new mysqli($servername, $username, $password, $dbname);
 
         // Create connection
@@ -116,4 +113,47 @@ $app = new \Slim\App($settings);
         $conn->close();
     });
 
-$app->run();
+    $app->$post("/addres", function ($request, $response, $args) {
+        
+        global $servername, $username, $password, $dbname;
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Create connection
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        } 
+
+        $fName = $app->request->post('FName');
+        $lName = $app->request->post('LName');
+        $time = $app->request->post('time');
+        $LD = $app->request->post('LD');
+        $NoG = $app->request->post('NoG');
+        $date = $app->request->post('date');
+
+        $sql = "INSERT INTO Reservations (FName, LName, T, LD, NoG, D)
+                VALUES ($fName, $lName, $time, $LD, $NoG, $date)";
+        
+        if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+        } 
+        else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+
+        $conn->close();
+    });
+
+    $app->run();
+
+
+
+
+
+
+
+
+
+
+
+
+
