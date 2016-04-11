@@ -9,6 +9,8 @@ if (PHP_SAPI == 'cli-server') {
 }
 
 require __DIR__ . '/../vendor/autoload.php';
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 session_start();
 
 $servername = "localhost";
@@ -113,7 +115,7 @@ $dbname = "test";
         $conn->close();
     });
 
-    $app->get("/reserve", function ($request, $response, $args) {
+    $app->get("/reserve", function (Request $request, Response $response) {
         
         global $servername, $username, $password, $dbname;
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -124,11 +126,6 @@ $dbname = "test";
             die("Connection failed: " . $conn->connect_error);
         } 
         $fName = $request->getAttribute('fname');
-        //$fName = $app->request->get('fname');
-        //$response->getBody()->write($fName);
-
-        //return $response;
-        
         $lName = $request->getAttribute('lname');
         $time = $request->getAttribute('time');
         $LD = $request->getAttribute('ld');
