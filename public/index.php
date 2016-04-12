@@ -14,9 +14,9 @@ use \Psr\Http\Message\ResponseInterface as Response;
 session_start();
 
 $servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "menu";
+$username = "test";
+$password = "test";
+$dbname = "test";
 
 // Instantiate the app
     $settings = require __DIR__ . '/../src/settings.php';
