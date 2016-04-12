@@ -145,39 +145,17 @@ $dbname = "test";
         else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-        
-        $conn->close();
-    });
 
-     $app->get("/reserve/CID", function (Request $request, Response $response) {
-        
-        global $servername, $username, $password, $dbname;
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Create connection
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        } 
-
-        $sql = "SELECT CID FROM `Reservations`";
+        $sql = "SELECT CID FROM `Reservations` WHERE FName = \"".$fName."\";";            
         $result = $conn->query($sql);
-        $rows = array();
-        if ($result->num_rows > 0) {
-            // output data of each row
-            while($r = $result->fetch_assoc()) {
-                $rows[] = $r;
-                
-            }
-        } 
-        else {
-            echo "0 results";
-        }
-        
+        $obj = mysqli_fetch_object($result);
 
-        echo json_encode($rows);
+        var_dump($obj);
+
         $conn->close();
     });
+
+     
 
 
 $app->run();
