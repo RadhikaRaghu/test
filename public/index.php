@@ -212,11 +212,6 @@ $dbname = "test";
             echo "0 results";
         }
 
-
-        $sql = "SELECT SUM(DailySales) FROM `WeeklySales`";
-        $result = $conn->query($sql);
-        
-        echo $result;
         echo json_encode($rows);
         $conn->close();
     }); 
