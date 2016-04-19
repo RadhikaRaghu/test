@@ -197,22 +197,35 @@ $dbname = "test";
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } 
-
+        
         $sql = "SELECT * FROM `WeeklySales`";
         $result = $conn->query($sql);
+        $output = array();
+        $output["data"] = array();
+        $output["total"] = array();
+
         $rows = array();
         if ($result->num_rows > 0) {
             // output data of each row
             while($r = $result->fetch_assoc()) {
-                $rows[] = $r;
+                array_push($output["data"],$r);
                 
             }
         } 
         else {
             echo "0 results";
         }
-
-        echo json_encode($rows);
+        
+        $sql = "SELECT sum(`DailySales`) as total FROM `WeeklySales` WHERE 1";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($r = $result->fetch_assoc()) {
+                $output["total"]=$r["total"];
+                
+            }
+        }         
+        echo json_encode($output);
         $conn->close();
     }); 
 
